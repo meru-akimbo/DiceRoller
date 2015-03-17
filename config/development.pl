@@ -1,6 +1,6 @@
 +{
     'DBI' => [
-        "dbi:mysql:dbname=", 'root', 'dice_roller',
+        "dbi:mysql:dbname=dice_roller", 'root', '',
         +{
             mysql_enable_utf8 => 1,
         }
