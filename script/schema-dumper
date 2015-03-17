@@ -1,0 +1,52 @@
+#!perl
+use strict;
+use warnings;
+use utf8;
+use 5.18.0;
+use File::Spec;
+use File::Basename;
+use lib File::Spec->catdir(dirname(__FILE__), '../lib');
+use File::Slurp;
+use Teng::Schema::Dumper;
+
+use DiceRoller;
+use DiceRoller::DB::SchemaDSL;
+
+sub do_sql {
+    my ($dbh, $sqls) = @_;
+
+    # remove comment.
+    $sqls =~ s/--.*$//gm;
+    $sqls =~ s/\n//gm;
+    for my $sql ( split /;/, $sqls ) {
+        $dbh->do($sql) or die $dbh->errstr;
+    }
+}
+
+
+# make sql
+my $sql = DiceRoller::DB::SchemaDSL->output;
+File::Slurp::write_file(dirname(__FILE__) . '/../sql/mysql.sql', $sql);
+
+# make teng schema
+my $c = DiceRoller->bootstrap;
+my $conf = $c->config->{DBI};
+
+my $dbh = DBI->connect(@$conf);
+my ($dbname) = $conf->[0] =~ /mysql:(?:dbname=)?([^;]+)/;
+
+$dbh->do(sprintf(q{ DROP DATABASE IF EXISTS `%s`}, $dbname));
+$dbh->do(sprintf(q{ CREATE DATABASE `%s`}, $dbname));
+$dbh->do(sprintf(q{ USE `%s`}, $dbname));
+$dbh->do(sprintf(q{ SET NAMES utf8 }, $dbname));
+
+do_sql($dbh, $sql);
+
+my $schema =Teng::Schema::Dumper->dump(
+    dbh       => $dbh,
+    namespace => 'DiceRoller::DB',
+);
+
+File::Slurp::write_file(dirname(__FILE__) . '/../lib/DiceRoller/DB/Schema.pm', $schema);
+
+
