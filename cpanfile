@@ -13,6 +13,8 @@ requires 'Text::Xslate', '2.0009';
 requires 'Time::Piece', '1.20';
 requires 'perl', '5.010_001';
 requires 'Module::Find';
+requires 'Amon2::Plugin::DBI';
+requires 'DBD::mysql';
 
 on configure => sub {
     requires 'Module::Build', '0.38';
