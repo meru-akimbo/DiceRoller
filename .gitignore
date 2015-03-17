@@ -19,3 +19,4 @@ MYMETA.yml
 *.swp
 *.swo
 *.swn
+.local.vimrc
