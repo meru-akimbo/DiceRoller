@@ -7,7 +7,7 @@ use 5.008001;
 use DiceRoller::DB::Schema;
 use DiceRoller::DB;
 
-use DataTimeX::Factory;
+use DateTimeX::Factory;
 
 use parent qw/Amon2/;
 # Enable project local mode.

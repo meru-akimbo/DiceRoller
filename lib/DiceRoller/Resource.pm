@@ -1,4 +1,4 @@
-package DiceRoller::Resouce;
+package DiceRoller::Resource;
 use strict;
 use warnings;
 use utf8;
