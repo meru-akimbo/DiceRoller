@@ -20,3 +20,5 @@ MYMETA.yml
 *.swo
 *.swn
 .local.vimrc
+node_modules/
+bower_components/
