@@ -10,6 +10,7 @@ use DiceRoller::DB;
 use parent qw/Amon2/;
 # Enable project local mode.
 __PACKAGE__->make_local_context();
+__PACKAGE__->load_plugin('Redis');
 
 my $schema = DiceRoller::DB::Schema->instance;
 
