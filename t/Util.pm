@@ -13,9 +13,13 @@ use lib File::Spec->rel2abs(File::Spec->catdir(dirname(__FILE__), '..', 'lib'));
 use parent qw/Exporter/;
 use Test::More 0.98;
 
+use DiceRoller;
+use DBI;
+
 our @EXPORT = qw(
     slurp
-
+    c
+    setup_db
 );
 
 {
@@ -32,6 +36,7 @@ our @EXPORT = qw(
     };
 }
 
+sub c { DiceRoller->bootstrap }
 
 sub slurp {
     my $fname = shift;
@@ -39,12 +44,19 @@ sub slurp {
     scalar do { local $/; <$fh> };
 }
 
-# initialize database
-use DiceRoller;
-{
-    unlink 'db/test.db' if -f 'db/test.db';
-    system("sqlite3 db/test.db < sql/sqlite.sql");
+sub setup_db {
+    my $conf = c->config->{DBI};
+
+    my $dbh = DBI->connect(@$conf);
+    my ($dbname) = $conf->[0] =~ /mysql:(?:dbname=)?([^;]+)/;
+    $dbh->do(sprintf(q{ DROP DATABASE IF EXISTS `%s`}, $dbname));
+    $dbh->do(sprintf(q{ CREATE DATABASE `%s`}, $dbname));
+    $dbh->do(sprintf(q{ USE `%s`}, $dbname));
+    $dbh->do(sprintf(q{ SET NAMES utf8 }, $dbname));
+
+    system("mysql -u$conf->[1] $dbname < sql/mysql.sql");
 }
 
+setup_db;
 
 1;
