@@ -13,7 +13,7 @@ sub create {
     )->with(qw/Method/);
     my($class, $args) = $v->validate(@_);
 
-    rerouce('Room')->create(%$args);
+    resource('Room')->create(%$args);
 }
 
 1;
