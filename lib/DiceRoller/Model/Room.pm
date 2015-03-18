@@ -18,4 +18,11 @@ sub create {
     resource('Room')->create(%$args);
 }
 
+sub all {
+    my ($class) = @_;
+
+    my @rooms = resource('Room')->search(+{});
+    return @rooms;
+}
+
 1;

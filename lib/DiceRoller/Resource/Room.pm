@@ -17,4 +17,14 @@ sub create {
     $class->db->insert('room', +{ %$args, created_at => $now});
 }
 
+sub search {
+    state $v = Data::Validator->new(
+        cond => 'HashRef',
+        opt  => +{ isa => 'HashRef', default => {} }
+    )->with(qw/Method StrictSequenced/);
+    my($class, $args) = $v->validate(@_);
+
+    return $class->db->search('room', $args->{cond}, $args->{opt});
+}
+
 1;
