@@ -15,8 +15,11 @@ requires 'perl', '5.010_001';
 requires 'Module::Find';
 requires 'DBD::mysql';
 requires 'DateTimeX::Factory';
+requires 'Data::Validator';
+
 requires 'Amon2::Plugin::DBI';
 requires 'Amon2::Plugin::Redis';
+
 
 on configure => sub {
     requires 'Module::Build', '0.38';
