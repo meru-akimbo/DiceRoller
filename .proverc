@@ -1,3 +1,8 @@
--l
--r t
 -Mt::Util
+--exec "carton exec perl -It/lib -Ilib -MTest::Pretty -MTest::Name::FromLine"
+-Pretty
+--timer
+--color
+--failures
+--trap
+--recurse
