@@ -21,7 +21,7 @@ sub make_instance {
             # tmpl
             $view_conf->{path} = [ $tmpl_path ];
         } else {
-            my $share_tmpl_path = eval { File::Spec->catdir(File::ShareDir::dist_dir('DiceRoller'), 'tmpl') };
+            my $share_tmpl_path = eval { File::Spec->catdir(File::ShareDir::dist_dir('DiceRoller'), 'view/htdocs') };
             if ($share_tmpl_path) {
                 # This application was installed to system.
                 $view_conf->{path} = [ $share_tmpl_path ];
