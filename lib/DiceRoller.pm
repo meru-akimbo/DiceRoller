@@ -7,6 +7,8 @@ use 5.008001;
 use DiceRoller::DB::Schema;
 use DiceRoller::DB;
 
+use DataTimeX::Factory;
+
 use parent qw/Amon2/;
 # Enable project local mode.
 __PACKAGE__->make_local_context();
@@ -30,6 +32,30 @@ sub db {
     }
     $c->{db};
 }
+
+sub dt {
+    my $c = shift;
+
+    DateTimeX::Factory->new(
+        time_zone => $c->config->{TIME_ZONE},
+    );
+}
+
+sub now {
+    my $c = shift;
+    $c->dt->now
+}
+
+sub today {
+    my $c = shift;
+    $c->dt->today
+}
+
+sub yesterday {
+    my $c = shift;
+    $c->dt->yesterday
+}
+
 
 1;
 __END__

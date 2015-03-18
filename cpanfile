@@ -14,6 +14,7 @@ requires 'Time::Piece', '1.20';
 requires 'perl', '5.010_001';
 requires 'Module::Find';
 requires 'DBD::mysql';
+requires 'DateTimeX::Factory';
 requires 'Amon2::Plugin::DBI';
 requires 'Amon2::Plugin::Redis';
 

@@ -10,4 +10,6 @@
         host => 'localhost',
         port => 6380,
     ],
+
+    TIME_ZONE => 'Asia/Tokyo',
 };
