@@ -16,7 +16,7 @@ sub make_instance {
 
     my $view_conf = $context->config->{'Text::Xslate'} || +{};
     unless (exists $view_conf->{path}) {
-        my $tmpl_path = File::Spec->catdir($context->base_dir(), 'tmpl');
+        my $tmpl_path = File::Spec->catdir($context->base_dir(), 'view/template');
         if ( -d $tmpl_path ) {
             # tmpl
             $view_conf->{path} = [ $tmpl_path ];
