@@ -14,11 +14,11 @@ use File::Path ();
 
 my $app = builder {
     enable 'Plack::Middleware::Static',
-        path => qr{^(?:/static/)},
-        root => File::Spec->catdir(dirname(__FILE__), '..');
+        path => qr!(\.css|\.js|\.img|\.woff|\.map)$!,
+        root => File::Spec->catdir(dirname(__FILE__), '..', 'view', 'htdocs');
     enable 'Plack::Middleware::Static',
         path => qr{^(?:/robots\.txt|/favicon\.ico)$},
-        root => File::Spec->catdir(dirname(__FILE__), '..', 'static');
+        root => File::Spec->catdir(dirname(__FILE__), '..', 'view', 'htdocs');
     enable 'Plack::Middleware::ReverseProxy';
 
     DiceRoller::Web->to_app();
