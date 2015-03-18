@@ -7,9 +7,11 @@ use DBIx::Schema::DSL;
 
 database 'MySQL';
 
-create_table 'member' => columns {
+create_table 'room' => columns {
     integer 'id',   primary_key, auto_increment;
-    varchar 'name', null;
+    varchar 'name', not_null;
+    integer 'max_member', not_null;
+    datetime 'created_at', not_null;
 };
 
 
