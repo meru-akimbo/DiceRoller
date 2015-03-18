@@ -13,7 +13,7 @@ sub create {
     )->with(qw/Method/);
     my($class, $args) = $v->validate(@_);
 
-    my $now = $class->c->now->from_mysql_date_time;
+    my $now = $class->c->now->strftime('%Y-%m-%d %H:%M:%S');
     $class->db->insert('room', +{ %$args, created_at => $now});
 }
 
